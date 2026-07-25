@@ -17,13 +17,8 @@ jobs:
         run: |
           make PLATFORM=3DS
 
-      - name: Find build output
+            - name: Find CIA assets
         run: |
-          echo "Bin folders:"
-          find . -maxdepth 4 -type d -name "bin"
-
-          echo "All RSDK files:"
-          find . -name "RSDK*"
-
-          echo "All files in output folders:"
-          find . -path "*bin*" -type f
+          find . -name "*.rsf"
+          find . -name "*.icn"
+          find . -name "*.bnr"

@@ -13,19 +13,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-          - name: Find build files
+      - name: Build 3DS ELF
+        run: |
+          make PLATFORM=3DS
+
+      - name: Find build files
         run: |
           echo "ELF files:"
           find . -name "*.elf"
 
           echo "CIA scripts:"
           find . -name "build_cia.sh"
-
-      - name: Upload CIA
-        uses: actions/upload-artifact@v4
-        with:
-          name: SonicMania-3DS-CIA
-          path: 3ds/out/SonicMania.cia
-      - name: Find ELF
-        run: |
-          find . -name "*.elf"

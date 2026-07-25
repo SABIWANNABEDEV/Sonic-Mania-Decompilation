@@ -24,8 +24,10 @@ jobs:
           chmod +x build_cia.sh
           ./build_cia.sh ../bin/3DS/SonicMania.so
 
-      - name: Upload CIA
-        uses: actions/upload-artifact@v4
-        with:
-          name: SonicMania-3DS-CIA
-          path: 3ds/out/SonicMania.cia
+      - name: Find CIA output
+        run: |
+          echo "CIA files:"
+          find . -name "*.cia"
+
+          echo "3DS folder contents:"
+          find 3ds -maxdepth 3 -type f

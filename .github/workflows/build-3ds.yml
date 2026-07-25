@@ -1,74 +1,23 @@
-name: Build Sonic Mania 3DS CIA
+- name: Build
+  run: |
+    # whatever your existing build commands are here
 
-on:
-  push:
-  pull_request:
 
-jobs:
-  build-3ds:
-    runs-on: ubuntu-latest
+- name: Check makerom
+  run: |
+    echo "=== makerom help ==="
+    ./3ds/makerom -h || true
 
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+    echo "=== RSF files in repo ==="
+    find . -name "*.rsf"
 
-      - name: Install dependencies
-        run: |
-          sudo apt update
-          sudo apt install -y cmake build-essential
 
-      - name: Make 3DS tools executable
-        run: |
-          chmod +x 3ds/makerom
-          chmod +x 3ds/bannertool
+- name: Make CIA
+  run: |
+    mkdir -p output
 
-      - name: Show files
-        run: |
-          echo "Checking repository:"
-          ls
-
-          echo "Checking 3DS tools:"
-          ls -l 3ds
-
-      - name: Configure CMake
-        run: |
-          mkdir build
-          cd build
-          cmake .. -DPLATFORM=3DS
-
-      - name: Build Sonic Mania
-        run: |
-          cd build
-          make -j$(nproc)
-
-      - name: Find build output
-        run: |
-          echo "Finding ELF files:"
-          find . -name "*.elf" || true
-
-          echo "Finding SO files:"
-          find . -name "*.so" || true
-
-          echo "Finding 3DS folder:"
-          find bin/3DS -type f || true
-
-      - name: Make CIA
-        run: |
-          mkdir -p output
-
-          ./3ds/makerom \
-            -f cia \
-            -o output/SonicMania.cia \
-            -elf bin/3DS/SonicMania.so \
-            -rsf 3ds/SonicMania.rsf
-
-      - name: Check CIA
-        run: |
-          ls -lh output
-          file output/SonicMania.cia
-
-      - name: Upload CIA
-        uses: actions/upload-artifact@v4
-        with:
-          name: SonicMania-3DS-CIA
-          path: output/SonicMania.cia
+    ./3ds/makerom \
+      -f cia \
+      -o output/SonicMania.cia \
+      -elf bin/3DS/SonicMania.so \
+      -rsf 3ds/SonicMania.rsf

@@ -16,7 +16,19 @@ jobs:
       - name: Build 3DS ELF
         run: |
           make PLATFORM=3DS
+      - name: Build CIA
+        run: |
+          ELF=$(find . -name "*.elf" | head -n 1)
+          echo "Using ELF: $ELF"
+          cd 3ds
+          chmod +x build_cia.sh
+          ./build_cia.sh "../$ELF"
 
+      - name: Upload CIA
+        uses: actions/upload-artifact@v4
+        with:
+          name: SonicMania-3DS-CIA
+          path: 3ds/out/SonicMania.cia
       - name: Find ELF
         run: |
           find . -name "*.elf"

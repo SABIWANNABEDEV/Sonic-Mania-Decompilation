@@ -1,0 +1,7 @@
+3ds/
+├── build_cia.sh
+├── makerom
+├── SonicMania.rsf
+└── out/
+    ├── icon.icn
+    └── banner.bnr

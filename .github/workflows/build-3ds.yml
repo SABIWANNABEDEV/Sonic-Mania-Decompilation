@@ -13,13 +13,19 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Build 3DS ELF
+      - name: Build 3DS
         run: |
           make PLATFORM=3DS
 
-      - name: Search packaging files
+      - name: Build CIA
         run: |
-          find . -iname "*makerom*"
-          find . -iname "*rsf*"
-          find . -iname "*cia*"
-          find . -iname "*3ds*"
+          cd 3ds
+          chmod +x makerom
+          chmod +x build_cia.sh
+          ./build_cia.sh ../bin/3DS/SonicMania.so
+
+      - name: Upload CIA
+        uses: actions/upload-artifact@v4
+        with:
+          name: SonicMania-3DS-CIA
+          path: 3ds/out/SonicMania.cia

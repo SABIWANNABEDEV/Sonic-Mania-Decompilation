@@ -23,11 +23,20 @@ jobs:
           chmod +x makerom
           chmod +x bannertool
           chmod +x build_cia.sh
+
+          echo "3DS folder:"
+          ls -la
+
+          echo "Running CIA script:"
           ./build_cia.sh ../bin/3DS/SonicMania.so
+
+          echo "After build:"
+          find . -name "*.bnr"
+          find . -name "*.cia"
 
       - name: Find CIA
         run: |
-          echo "CIA files:"
+          echo "Searching entire repo for CIA:"
           find . -name "*.cia"
 
       - name: Upload CIA
@@ -35,3 +44,4 @@ jobs:
         with:
           name: SonicMania-3DS-CIA
           path: "**/*.cia"
+          if-no-files-found: warn

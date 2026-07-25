@@ -13,16 +13,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Build 3DS ELF
+          - name: Find build files
         run: |
-          make PLATFORM=3DS
-      - name: Build CIA
-        run: |
-          ELF=$(find . -name "*.elf" | head -n 1)
-          echo "Using ELF: $ELF"
-          cd 3ds
-          chmod +x build_cia.sh
-          ./build_cia.sh "../$ELF"
+          echo "ELF files:"
+          find . -name "*.elf"
+
+          echo "CIA scripts:"
+          find . -name "build_cia.sh"
 
       - name: Upload CIA
         uses: actions/upload-artifact@v4

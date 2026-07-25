@@ -1,14 +1,11 @@
       - name: Install devkitPro tools
         run: |
           sudo apt update
-          sudo apt install -y wget gnupg
+          sudo apt install -y wget gnupg ca-certificates
 
-          wget -qO- https://apt.devkitpro.org/devkitpro-pub.key | sudo gpg --dearmor -o /usr/share/keyrings/devkitpro-pub.gpg
+          wget https://github.com/devkitPro/pacman/releases/download/v6.0.2/devkitpro-pacman.deb
 
-          echo "deb [signed-by=/usr/share/keyrings/devkitpro-pub.gpg] https://apt.devkitpro.org/devkitpro/debian/ $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/devkitpro.list
-
-          sudo apt update
-          sudo apt install -y devkitpro-pacman
+          sudo apt install -y ./devkitpro-pacman.deb
 
           sudo dkp-pacman -Syu --noconfirm
           sudo dkp-pacman -S --noconfirm 3ds-dev 3ds-tools

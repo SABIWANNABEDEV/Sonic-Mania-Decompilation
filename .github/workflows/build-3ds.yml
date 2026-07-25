@@ -17,7 +17,7 @@ jobs:
         run: |
           make PLATFORM=3DS
 
-            - name: Find CIA assets
+      - name: Find CIA assets
         run: |
           find . -name "*.rsf"
           find . -name "*.icn"

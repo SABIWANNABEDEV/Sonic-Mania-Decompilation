@@ -1,44 +1,14 @@
-name: Build Sonic Mania 3DS CIA
-
-on:
-  workflow_dispatch:
-  push:
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
       - name: Install devkitPro tools
         run: |
           sudo apt update
-          sudo apt install -y wget tar
+          sudo apt install -y wget gnupg
 
-          wget https://github.com/devkitPro/pacman/releases/latest/download/devkitpro-pacman.deb
-          sudo dpkg -i devkitpro-pacman.deb
+          wget -qO- https://apt.devkitpro.org/devkitpro-pub.key | sudo gpg --dearmor -o /usr/share/keyrings/devkitpro-pub.gpg
+
+          echo "deb [signed-by=/usr/share/keyrings/devkitpro-pub.gpg] https://apt.devkitpro.org/devkitpro/debian/ $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/devkitpro.list
+
+          sudo apt update
+          sudo apt install -y devkitpro-pacman
 
           sudo dkp-pacman -Syu --noconfirm
-          sudo dkp-pacman -S --noconfirm \
-            3ds-dev \
-            3ds-tools
-
-      - name: Build 3DS ELF
-        run: |
-          make PLATFORM=3DS
-
-      - name: Build CIA
-        run: |
-          ELF=$(find . -name "*.elf" | head -n 1)
-          echo "Using ELF: $ELF"
-          chmod +x 3ds/build_cia.sh
-          cd 3ds
-          ./build_cia.sh "../$ELF"
-
-      - name: Upload CIA
-        uses: actions/upload-artifact@v4
-        with:
-          name: SonicMania-3DS-CIA
-          path: 3ds/out/SonicMania.cia
+          sudo dkp-pacman -S --noconfirm 3ds-dev 3ds-tools

@@ -13,24 +13,31 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Check Makefile
+        run: |
+          echo "Searching Makefiles:"
+          find . -name "Makefile"
+
+          echo "Searching for 3DS settings:"
+          grep -R "3DS" -n . || true
+
+          echo "Searching for TARGET settings:"
+          grep -R "TARGET" -n . || true
+
+          echo "Searching for OUTPUT settings:"
+          grep -R "OUTPUT" -n . || true
+
       - name: Build 3DS
         run: |
           make PLATFORM=3DS
 
-      - name: Find Build Outputs
+      - name: Check outputs
         run: |
-          echo "Finding ELF files:"
-          find . -name "*.elf"
-
-          echo "Finding SO files:"
-          find . -name "*.so"
-
-          echo "Finding 3DS folder:"
+          echo "3DS output files:"
           find bin/3DS -type f
 
-      - name: Prepare CIA Tools
-        run: |
-          cd 3ds
-          chmod +x makerom
-          chmod +x bannertool
-          chmod +x build_cia.sh
+          echo "All ELF files:"
+          find . -name "*.elf"
+
+          echo "All SO files:"
+          find . -name "*.so"

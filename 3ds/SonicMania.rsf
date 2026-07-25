@@ -11,13 +11,12 @@ TitleInfo:
   Category                : Application
   UniqueId                : 0x3082 #Something like 0x1337, but you can make it whatever you want, as long as it's a hexadecimal number (probably best to make it something actually unique though!)
 
-Option:
-  Option:
+Options:
   UseOnSD                 : true
   FreeProductCode         : true
   MediaFootPadding        : false
   EnableCrypt             : false
-  EnableCompress          : true        : true # Compresses where applicable (currently only exefs:/.code)
+  EnableCompress          : true   : true # Compresses where applicable (currently only exefs:/.code)
 AccessControlInfo:
   CoreVersion                   : 2
 

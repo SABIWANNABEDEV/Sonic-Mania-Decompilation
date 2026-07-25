@@ -17,10 +17,13 @@ jobs:
         run: |
           make PLATFORM=3DS
 
-      - name: Find build files
+            - name: Find build output
         run: |
-          echo "ELF files:"
-          find . -name "*.elf"
+          echo "Bin folders:"
+          find . -maxdepth 4 -type d -name "bin"
 
-          echo "CIA scripts:"
-          find . -name "build_cia.sh"
+          echo "All RSDK files:"
+          find . -name "RSDK*"
+
+          echo "All files in output folders:"
+          find . -path "*bin*" -type f

@@ -12,11 +12,12 @@ TitleInfo:
   UniqueId                : 0x3082 #Something like 0x1337, but you can make it whatever you want, as long as it's a hexadecimal number (probably best to make it something actually unique though!)
 
 Option:
-  UseOnSD                 : true # true if App is to be installed to SD
-  FreeProductCode         : true # Removes limitations on ProductCode
-  MediaFootPadding        : false # If true CCI files are created with padding
-  EnableCrypt : false             : $(APP_ENCRYPTED) # Enables encryption for NCCH and CIA
-  EnableCompress          : true # Compresses where applicable (currently only exefs:/.code)
+  Option:
+  UseOnSD                 : true
+  FreeProductCode         : true
+  MediaFootPadding        : false
+  EnableCrypt             : false
+  EnableCompress          : true        : true # Compresses where applicable (currently only exefs:/.code)
 AccessControlInfo:
   CoreVersion                   : 2
 

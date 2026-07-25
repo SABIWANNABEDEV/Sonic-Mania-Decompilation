@@ -17,7 +17,7 @@ jobs:
         run: |
           make PLATFORM=3DS
 
-        - name: List 3DS files
+      - name: List 3DS files
         run: |
           find . -maxdepth 3 -type d
           find . -maxdepth 3 -type f | grep -i "3ds"

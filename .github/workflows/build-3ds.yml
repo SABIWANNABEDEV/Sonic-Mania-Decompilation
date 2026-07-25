@@ -17,7 +17,9 @@ jobs:
         run: |
           make PLATFORM=3DS
 
-      - name: List 3DS files
+      - name: Search packaging files
         run: |
-          find . -maxdepth 3 -type d
-          find . -maxdepth 3 -type f | grep -i "3ds"
+          find . -iname "*makerom*"
+          find . -iname "*rsf*"
+          find . -iname "*cia*"
+          find . -iname "*3ds*"

@@ -13,11 +13,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Build 3DS ELF
+            - name: Build 3DS ELF
         run: |
           make PLATFORM=3DS
 
-            - name: Find build output
+      - name: Find build output
         run: |
           echo "Bin folders:"
           find . -maxdepth 4 -type d -name "bin"

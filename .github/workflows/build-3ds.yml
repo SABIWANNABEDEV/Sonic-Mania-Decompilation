@@ -17,8 +17,7 @@ jobs:
         run: |
           make PLATFORM=3DS
 
-      - name: Find CIA assets
+        - name: List 3DS files
         run: |
-          find . -name "*.rsf"
-          find . -name "*.icn"
-          find . -name "*.bnr"
+          find . -maxdepth 3 -type d
+          find . -maxdepth 3 -type f | grep -i "3ds"

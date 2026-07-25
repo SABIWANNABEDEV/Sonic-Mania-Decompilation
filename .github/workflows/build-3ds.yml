@@ -6,22 +6,12 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    container:
+      image: devkitpro/devkitarm
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
-      - name: Install devkitPro
-        run: |
-          sudo apt update
-          sudo apt install -y wget curl
-
-          curl -L https://github.com/devkitPro/pacman/releases/latest/download/devkitpro-pacman.deb -o devkitpro-pacman.deb
-
-          sudo apt install -y ./devkitpro-pacman.deb
-
-          sudo dkp-pacman -Syu --noconfirm
-          sudo dkp-pacman -S --noconfirm 3ds-dev 3ds-tools
 
       - name: Build 3DS ELF
         run: |
